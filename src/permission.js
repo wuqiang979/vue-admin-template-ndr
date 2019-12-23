@@ -11,6 +11,7 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 const whiteList = ['/login'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
+  console.log(to)
   // start progress bar
   NProgress.start()
 
@@ -19,9 +20,10 @@ router.beforeEach(async(to, from, next) => {
 
   // determine whether the user has logged in
   const hasToken = getToken()
-
+  console.log(hasToken)
   if (hasToken) {
     if (to.path === '/login') {
+      console.log(123)
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
@@ -46,8 +48,8 @@ router.beforeEach(async(to, from, next) => {
     }
   } else {
     /* has no token*/
-
     if (whiteList.indexOf(to.path) !== -1) {
+      console.log(222222)
       // in the free login whitelist, go directly
       next()
     } else {
